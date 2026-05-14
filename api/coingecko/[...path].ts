@@ -7,6 +7,8 @@ export const config = {
 
 export default async function handler(request: Request): Promise<Response> {
   const url = new URL(request.url);
+  // [...path] captures everything after /api/coingecko/ as path segments
+  // e.g. /api/coingecko/coins/markets → path = '/coins/markets'
   const path = url.pathname.replace(/^\/api\/coingecko/, '');
   const target = `${COINGECKO_API}${path}${url.search}`;
 
