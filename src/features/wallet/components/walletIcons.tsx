@@ -20,7 +20,7 @@ export function MetaMaskIcon({ size = 32 }: IconProps) {
 }
 
 export function CoinbaseIcon({ size = 32 }: IconProps) {
-  return <WalletLogo src="/logos/coinbase%20logo.svg" alt="Coinbase Wallet" size={size} />;
+  return <WalletLogo src="/logos/coinbase%20logo%20png.png" alt="Coinbase Wallet" size={size} />;
 }
 
 export function WalletConnectIcon({ size = 32 }: IconProps) {
@@ -40,7 +40,7 @@ export function RainbowIcon({ size = 32 }: IconProps) {
 }
 
 export function LedgerIcon({ size = 32 }: IconProps) {
-  return <WalletLogo src="/logos/ledger%20logo%20png.png" alt="Ledger" size={size} />;
+  return <WalletLogo src="/logos/ledger%20logo%20png.jpeg" alt="Ledger" size={size} />;
 }
 
 export function SafeIcon({ size = 32 }: IconProps) {
