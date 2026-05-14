@@ -1,5 +1,5 @@
 const COINGECKO_API = 'https://api.coingecko.com/api/v3';
-const CACHE_MAX_AGE = 30; // seconds — free tier rate limits are tight
+const CACHE_MAX_AGE = 30;
 
 export const config = {
   runtime: 'edge',
@@ -7,10 +7,18 @@ export const config = {
 
 export default async function handler(request: Request): Promise<Response> {
   const url = new URL(request.url);
-  // [...path] captures everything after /api/coingecko/ as path segments
-  // e.g. /api/coingecko/coins/markets → path = '/coins/markets'
-  const path = url.pathname.replace(/^\/api\/coingecko/, '');
-  const target = `${COINGECKO_API}${path}${url.search}`;
+  const endpoint = url.searchParams.get('endpoint');
+
+  if (!endpoint) {
+    return new Response(JSON.stringify({ error: 'Missing endpoint parameter' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  // Remove endpoint from params, forward the rest to CoinGecko
+  url.searchParams.delete('endpoint');
+  const target = `${COINGECKO_API}/${endpoint}?${url.searchParams.toString()}`;
 
   try {
     const response = await fetch(target);

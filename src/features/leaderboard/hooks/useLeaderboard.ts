@@ -48,6 +48,7 @@ async function fetchWithRetry(
 
 async function fetchMarkets(page: number, _timeframe: Timeframe): Promise<CoinGeckoMarket[]> {
   const params = new URLSearchParams({
+    endpoint: 'coins/markets',
     vs_currency: 'usd',
     order: 'market_cap_desc',
     per_page: PAGE_SIZE.toString(),
@@ -57,7 +58,7 @@ async function fetchMarkets(page: number, _timeframe: Timeframe): Promise<CoinGe
     locale: 'en',
   });
 
-  const response = await fetchWithRetry(`${COINGECKO_BASE_URL}/coins/markets?${params}`);
+  const response = await fetchWithRetry(`${COINGECKO_BASE_URL}?${params}`);
   return response.json();
 }
 

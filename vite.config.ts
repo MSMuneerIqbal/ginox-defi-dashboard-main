@@ -15,7 +15,18 @@ export default defineConfig({
       '/api/coingecko': {
         target: 'https://api.coingecko.com',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/coingecko/, '/api/v3'),
+        rewrite: () => '/api/v3',
+        configure: (proxy) => {
+          proxy.on('proxyReq', (proxyReq, req) => {
+            if (!req.url) return;
+            const parsed = new URL(req.url, 'http://localhost');
+            const endpoint = parsed.searchParams.get('endpoint');
+            if (endpoint) {
+              parsed.searchParams.delete('endpoint');
+              proxyReq.path = `/api/v3/${endpoint}?${parsed.searchParams.toString()}`;
+            }
+          });
+        },
       },
       '/api/rpc/eth': {
         target: 'https://cloudflare-eth.com',
