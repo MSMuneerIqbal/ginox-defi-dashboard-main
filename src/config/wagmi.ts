@@ -17,7 +17,7 @@ const projectId = import.meta.env.VITE_WALLETCONNECT_PROJECT_ID || '';
 const alchemyKey = import.meta.env.VITE_ALCHEMY_API_KEY || '';
 
 function rpc(alchemyPath: string, proxyPath: string): ReturnType<typeof http> {
-  if (alchemyKey) return http(`https://${alchemyPath}.g.alchemy.com/v2/${alchemyKey}`);
+  if (alchemyKey && alchemyPath) return http(`https://${alchemyPath}.g.alchemy.com/v2/${alchemyKey}`);
   return http(`/api/rpc/${proxyPath}`);
 }
 

@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "PowerShell(Copy-Item *)",
-      "Bash(npx vite *)"
-    ]
-  }
-}
